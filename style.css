@@ -1,0 +1,8 @@
+.input-button {
+    color:red;
+    font-size:2em;
+}
+.input-button:hover{
+    cursor: pointer;
+    color:rgb(207, 4, 4);
+}
