@@ -18,47 +18,103 @@ var timeController = (function () {
         projects: [],
         totalTime: 0
     };
+    var projectTime = 0;
+    var globalID = 1;
+
+
+
+
     var calcTotal = () => {
         var total = 0;
         projectsData.projects.forEach(el => total += el.time);
         projectsData.totalTime = total;
     }
+
     return {
-        addItem: (value, time) => {
-            var newItem, ID;
-            ID = 5;
+
+        //ADD ITEM TO DATA 
+        addItem: (value) => {
+            let ID;
+            if(projectsData.projects.length > 0){
+                ID = projectsData.projects[projectsData.projects.length - 1].id + 1
+            }else{
+                ID = 0
+            }
+            var newItem, time;
+            time = 0;
             newItem = new Projects(ID, value, time);
             projectsData.projects.push(newItem);
             return newItem;
         },
+        updateTime:(currentProject,time)=>{
+            projectsData.projects[currentProject].time=time;
+        },
+        //
         calculateTotaTime: () => calcTotal,
-        testproj: () => console.log(projectsData)
+            timer: setInterval(() => {
+                projectTime++;
+                return projectTime
+            }, 1000),
+
+        //GIVE ID TO CTRL
+        
+
+        testproj: () => console.log(projectsData),
+        startcount: () => timegoes(),
     }
 })();
 
 var UiController = (function () {
-
+    let seconds = 0;
+    var currentID;
+    var interval;
     var DOMstrings = {
         inputButton: '.input-button',
         inputValue: '.input-name',
+        time: '.time',
         inputTime: '.input-time',
         taskWrapper: '.tasks-wrapper',
-        inputAttribute: '[data-input]'
+        inputAttribute: '[data-input]',
+        pauseButton: '.pause'
     }
 
     return {
         getInput: function () {
             return {
                 value: document.querySelector(DOMstrings.inputValue).value,
-                time: document.querySelector(DOMstrings.inputTime).value
+
             }
         },
+
         getDOMstrings: () => DOMstrings,
+
         addListItemDOM: (obj) => {
             var wrapper = DOMstrings.taskWrapper;
-            var html = `<div class='task-item'><p>${obj.name}</p><h1>${obj.time}</h1>`;
+            var html = `<div class='task-item' data-id='${obj.id}'><p>${obj.name}</p><p class='time' data-currentTimer=${obj.id}>0</p><a href='#' class='pause'>pause</a>`;
             document.querySelector(wrapper).insertAdjacentHTML('beforeend', html);
+            currentID = obj.id;
         },
+
+        startTimer: () => {
+            clearInterval(interval)
+            seconds = 0;
+            interval = setInterval(() => {
+                seconds++
+                var gugu = `[data-currentTimer="${currentID}"]`;
+                console.log('gugu: ', gugu);
+                var secondsDiv = document.querySelector(gugu);
+                secondsDiv.textContent = seconds;
+                return seconds
+            }, 1000)
+        },
+
+        pausetimer: (ev) => {
+            
+            console.log('TCL: UiController -> currentPause', ev.target);
+            clearInterval(interval)
+            return seconds;
+        },
+
         clearInputValues: () => {
             var inputFields = document.querySelectorAll(DOMstrings.inputAttribute);
             inputFields.forEach(el => el.value = '')
@@ -67,25 +123,39 @@ var UiController = (function () {
     }
 })();
 
+// MAIN CONTROLLER
 var controller = (function (TimeCtrl, UIctrl) {
-
+    var DOM = UIctrl.getDOMstrings();
+    
     var setupEventListeners = () => {
-        var DOM = UIctrl.getDOMstrings();
         document.querySelector(DOM.inputButton).addEventListener('click', ctrlAddItem);
         document.addEventListener('keypress', ev => (ev.keyCode === 13 && ctrlAddItem()));
     }
+    var setupEventListenersAfter = () => {
+        document.querySelector(DOM.pauseButton).addEventListener('click', pauseTimer);
+    }
     //kai paspaudzia enter ar go
     var ctrlAddItem = () => {
+        
         var input = UIctrl.getInput();
         if (input.description !== '' && isNaN(input.value)) {
-            var newItem = TimeCtrl.addItem(input.value, input.time);
+            var newItem = TimeCtrl.addItem(input.value);
             UIctrl.addListItemDOM(newItem);
+            UIctrl.startTimer();
             UIctrl.clearInputValues();
-            console.log(input)
         } else {
             alert('duh! write something you lazy twat..')
-        }
+        };
+        setupEventListenersAfter();
+        //TimeCtrl.startcount();
+    };
+    var pauseTimer = (ev) => {
+       
+        UIctrl.pausetimer(ev)
     }
+
+
+
 
     return {
         init: () => {
