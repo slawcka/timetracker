@@ -35,9 +35,9 @@ var timeController = (function () {
         //ADD ITEM TO DATA 
         addItem: (value) => {
             let ID;
-            if(projectsData.projects.length > 0){
+            if (projectsData.projects.length > 0) {
                 ID = projectsData.projects[projectsData.projects.length - 1].id + 1
-            }else{
+            } else {
                 ID = 0
             }
             var newItem, time;
@@ -46,18 +46,32 @@ var timeController = (function () {
             projectsData.projects.push(newItem);
             return newItem;
         },
-        updateTime:(currentProject,time)=>{
-            projectsData.projects[currentProject].time=time;
+        updateObjTime: (id, seconds) => {
+            projectsData.projects.forEach(el => {
+                if (el.id == id) {
+                    el.time = seconds
+                }
+            })
+
+
+        },
+        returnCurrentTime:(id)=>{
+            var time;
+            projectsData.projects.forEach(el => {
+                if (el.id == id){
+                    projectTime= el;
+                }
+                
+                ;}
+               
+            )
+            return projectTime
         },
         //
-        calculateTotaTime: () => calcTotal,
-            timer: setInterval(() => {
-                projectTime++;
-                return projectTime
-            }, 1000),
+       
 
         //GIVE ID TO CTRL
-        
+
 
         testproj: () => console.log(projectsData),
         startcount: () => timegoes(),
@@ -75,7 +89,9 @@ var UiController = (function () {
         inputTime: '.input-time',
         taskWrapper: '.tasks-wrapper',
         inputAttribute: '[data-input]',
-        pauseButton: '.pause'
+        pauseButton: '.pause',
+        container: '.task-box',
+        input: 'input-name'
     }
 
     return {
@@ -95,22 +111,10 @@ var UiController = (function () {
             currentID = obj.id;
         },
 
-        startTimer: () => {
-            clearInterval(interval)
-            seconds = 0;
-            interval = setInterval(() => {
-                seconds++
-                var gugu = `[data-currentTimer="${currentID}"]`;
-                console.log('gugu: ', gugu);
-                var secondsDiv = document.querySelector(gugu);
-                secondsDiv.textContent = seconds;
-                return seconds
-            }, 1000)
-        },
+
 
         pausetimer: (ev) => {
-            
-            console.log('TCL: UiController -> currentPause', ev.target);
+
             clearInterval(interval)
             return seconds;
         },
@@ -126,34 +130,78 @@ var UiController = (function () {
 // MAIN CONTROLLER
 var controller = (function (TimeCtrl, UIctrl) {
     var DOM = UIctrl.getDOMstrings();
-    
+
     var setupEventListeners = () => {
-        document.querySelector(DOM.inputButton).addEventListener('click', ctrlAddItem);
         document.addEventListener('keypress', ev => (ev.keyCode === 13 && ctrlAddItem()));
     }
-    var setupEventListenersAfter = () => {
-        document.querySelector(DOM.pauseButton).addEventListener('click', pauseTimer);
+
+    var setupUniversalListeners = () => {
+        document.addEventListener('click', whichClicked);
+        function whichClicked(e) {
+            const el = e.target;
+            el.matches(DOM.inputButton) && ctrlAddItem();
+            el.matches(DOM.pauseButton) && pauseTimer(e);
+            e.target.matches(DOM.inputAttribute) && console.log('tik tak tik tak')
+
+        }
     }
     //kai paspaudzia enter ar go
     var ctrlAddItem = () => {
-        
+
         var input = UIctrl.getInput();
         if (input.description !== '' && isNaN(input.value)) {
             var newItem = TimeCtrl.addItem(input.value);
             UIctrl.addListItemDOM(newItem);
-            UIctrl.startTimer();
+            startTimer(newItem);
             UIctrl.clearInputValues();
         } else {
             alert('duh! write something you lazy twat..')
         };
-        setupEventListenersAfter();
+
         //TimeCtrl.startcount();
     };
-    var pauseTimer = (ev) => {
-       
-        UIctrl.pausetimer(ev)
+    var pauseTimer = (el) => {
+        var currentTimeAttribute=el.target.previousElementSibling.getAttribute('timer-id');
+        var parent=el.target.parentNode;
+        console.log('elz: ', parent.className);
+        if(parent.className.includes('resume')){
+            parent.classList.toggle('resume')
+            startTimer(TimeCtrl.returnCurrentTime(currentTimeAttribute))
+            
+        }else {
+            
+            clearInterval(currentTimeAttribute)
+            parent.classList.toggle('resume')
+        }
+        
+        
+        console.log('ela: ', el.target);
+        
+        
+        
+       /*  
+        if (el.target.matches('.resume')){
+            currentTimeAttribute=setInterval
+        } */
+        
+
     }
 
+    var startTimer = (el) => {
+        console.log('elzzz: ', el);
+        var parent,seconds,intervalID,currentSeconds,currentobj;
+        parent = document.querySelector('[data-currenttimer="' + el.id + '"]')
+        currentobj=TimeCtrl.returnCurrentTime(el.id);
+        currentSeconds= currentobj.time;
+        seconds = 0;
+
+        intervalID = setInterval(() => {
+            currentSeconds++
+            parent.textContent = currentSeconds;
+            TimeCtrl.updateObjTime(el.id, currentSeconds);
+        }, 1000)
+        parent.setAttribute('timer-id', intervalID);
+    };
 
 
 
@@ -161,6 +209,7 @@ var controller = (function (TimeCtrl, UIctrl) {
         init: () => {
             console.log('app started');
             setupEventListeners();
+            setupUniversalListeners();
         }
     }
 })(timeController, UiController);
@@ -175,6 +224,10 @@ controller.init();
 
 
 /* 
+switch(e.target){
+                case
+            }
+
 var allProjects=[];
   
 var projectids=1;
