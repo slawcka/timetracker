@@ -140,7 +140,7 @@ var controller = (function (TimeCtrl, UIctrl) {
         function whichClicked(e) {
             const el = e.target;
             el.matches(DOM.inputButton) && ctrlAddItem();
-            el.matches(DOM.pauseButton) && pauseTimer(e);
+            el.matches(DOM.pauseButton) && pauseResumeTimer(e);
             e.target.matches(DOM.inputAttribute) && console.log('tik tak tik tak')
 
         }
@@ -152,7 +152,7 @@ var controller = (function (TimeCtrl, UIctrl) {
         if (input.description !== '' && isNaN(input.value)) {
             var newItem = TimeCtrl.addItem(input.value);
             UIctrl.addListItemDOM(newItem);
-            startTimer(newItem);
+            startTimer(TimeCtrl.returnCurrentTime(newItem.id));
             UIctrl.clearInputValues();
         } else {
             alert('duh! write something you lazy twat..')
@@ -160,31 +160,18 @@ var controller = (function (TimeCtrl, UIctrl) {
 
         //TimeCtrl.startcount();
     };
-    var pauseTimer = (el) => {
-        var currentTimeAttribute=el.target.previousElementSibling.getAttribute('timer-id');
+    var pauseResumeTimer = (el) => {
+        var currentIntervalID=el.target.previousElementSibling.getAttribute('timer-id');
+        var currentIDattribute=el.target.parentNode.getAttribute('data-id');
         var parent=el.target.parentNode;
-        console.log('elz: ', parent.className);
         if(parent.className.includes('resume')){
             parent.classList.toggle('resume')
-            startTimer(TimeCtrl.returnCurrentTime(currentTimeAttribute))
+            startTimer(TimeCtrl.returnCurrentTime(currentIDattribute))
             
         }else {
-            
-            clearInterval(currentTimeAttribute)
+            clearInterval(currentIntervalID)
             parent.classList.toggle('resume')
         }
-        
-        
-        console.log('ela: ', el.target);
-        
-        
-        
-       /*  
-        if (el.target.matches('.resume')){
-            currentTimeAttribute=setInterval
-        } */
-        
-
     }
 
     var startTimer = (el) => {
