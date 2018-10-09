@@ -5,24 +5,41 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>slavik</title>
     <link rel="stylesheet" href="style.css">
+    
+    <link rel="stylesheet" href="normalize.css">
+    <!-- <link rel="stylesheet" href="bootstrap-grid.css"> -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,700,900" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
+    
 
 
 </head>
 <body>
-
-<h2>enter task</h2>
-<div class="task-box" data-count='1'>
-    <input type="text" class='input-name' placeholder="name" data-input>
-   
-    <i class="fas fa-play-circle input-button" data-button='1'></i>
+<div class="container text-center">
+        <h1 class="logo purple">Taskers<span class="green">.</span></h1>
+        <div class="task-box" data-count='1'>
+            <p class="working-on p3">working on <i class="fas fa-caret-right triangle"></i></p>
+           
+                <input type="text" class='input-name p3' placeholder="name" data-input>
+               
+                <i class="fas fa-play-circle input-button" data-button='1'></i>
+            </div>
+            
+    <div class="row">
+       
+        
+        <div class="tasks-wrapper">
+        
+        </div>
+        <i class="fas fa-plus-circle add-task"></i>
+        <p class="laikas"></p>
+    </div>
 </div>
-<div class="tasks-wrapper">
+<h2>asss</h2>
 
-</div>
-<i class="fas fa-plus-circle add-task"></i>
-<p class="laikas"></p>
     <script src="/script.js"></script>
+    <script src="/helpers.js"></script>
 </body>
 </html>

@@ -1,8 +1,90 @@
+.input-name {
+  outline: none;
+}
+
+body {
+  font-family: "Source Sans Pro", sans-serif !important;
+  letter-spacing: -1px;
+}
+
+h2 {
+  color: #2082a5 !important;
+}
+
+h1 {
+  color: #44d194;
+}
+
+.p3 {
+  font-size: 1.5em;
+}
+
+.task-box {
+  position: relative;
+  display: inline-block;
+}
+
+.logo {
+  font-size: 3em;
+  color: #454272;
+  font-weight: 900;
+}
+.logo span {
+  color: #afe56d;
+}
+
+.working-on {
+  position: relative;
+  color: white;
+  display: inline-block;
+  height: 50px;
+  line-height: 50px;
+  border-top-left-radius: 25px;
+  border-bottom-left-radius: 25px;
+  padding: 0px 20px;
+  background: #afe56d;
+}
+
+.input-name {
+  position: relative;
+  color: #615d94;
+  height: 50px;
+  line-height: 50px;
+  border-top-right-radius: 25px;
+  border-bottom-right-radius: 25px;
+  margin-left: -3px;
+  padding: 0px 15px;
+  border-width: initial;
+  border-style: none;
+  border-color: initial;
+  border-image: initial;
+  background: #f0eef7;
+}
+
+.triangle {
+  font-size: 1.8em;
+  color: #afe56d;
+  position: absolute;
+  top: 2px;
+  right: 0px;
+  z-index: 10;
+  transition: all 200ms ease 0s;
+}
+
+.triangle.entered {
+  right: -9px;
+}
+
 .input-button {
-    color:red;
-    font-size:2em;
+  color: #d50d0d;
+  font-size: 2.5em;
+  position: absolute;
+  right: 8px;
+  top: 5px;
 }
-.input-button:hover{
-    cursor: pointer;
-    color:rgb(207, 4, 4);
+.input-button:hover {
+  cursor: pointer;
+  color: #a42020;
 }
+
+/*# sourceMappingURL=style.css.map */
