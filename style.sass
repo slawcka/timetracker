@@ -15,14 +15,17 @@ body
     letter-spacing: -1px   
 h2
     color: $color3 !important
+    font-size:2em
 h1 
     color: $color2
 
 .p3
-    font-size:1.5em    
+    font-size:1.5em 
+
 .task-box
     position: relative
     display: inline-block
+
 .logo
     font-size: 3em
     color: $color4
@@ -78,3 +81,11 @@ h1
     &:hover
         cursor: pointer
         color:#a42020
+
+.task-item
+    background: #f2f2f2
+    border-radius:10px
+    p
+        @extend .p3
+    h2 
+        

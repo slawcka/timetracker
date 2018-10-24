@@ -106,7 +106,7 @@ var UiController = (function () {
 
         addListItemDOM: (obj) => {
             var wrapper = DOMstrings.taskWrapper;
-            var html = `<div class='task-item' data-id='${obj.id}'><p>${obj.name}</p><p class='time' data-currentTimer=${obj.id}>0</p><a href='#' class='pause'>pause</a>`;
+            var html = `<div class=col-md-4><div class='task-item' data-id='${obj.id}'><h2>${obj.name}</h2><p class='time' data-currentTimer=${obj.id}>0</p><a href='#' class='pause'>pause</a></div></div>`;
             document.querySelector(wrapper).insertAdjacentHTML('beforeend', html);
             currentID = obj.id;
         },
@@ -203,3 +203,4 @@ var controller = (function (TimeCtrl, UIctrl) {
 controller.init();
 
 
+//swatches background: linear-gradient(90deg, #efd5ff 0%, #515ada 100%);
