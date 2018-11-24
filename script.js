@@ -106,12 +106,12 @@ var UiController = (function () {
 
         addListItemDOM: (obj) => {
             var wrapper = DOMstrings.taskWrapper;
-            var html = `<div class=col-12 m-3><div class='task-item clearfix ' data-id='${obj.id}'><h2>${obj.name}</h2><div class="time"><p data-currentTimer=${obj.id}>0</p><a href='#' class='pause'>pause</a></div></div></div>`;
+            var html = `<div class=col-12 m-3><div class='task-item clearfix ' data-id='${obj.id}'><h2>${obj.name}</h2><div class="time"><p data-currentTimer=${obj.id}>0</p><i class="fas fa-pause-circle pause"></i><i class="fas fa-trash-alt"></i></div></div></div>`;
             document.querySelector(wrapper).insertAdjacentHTML('beforeend', html);
             currentID = obj.id;
         },
 
-
+      
 
         pausetimer: (ev) => {
 
@@ -139,6 +139,7 @@ var controller = (function (TimeCtrl, UIctrl) {
         document.addEventListener('click', whichClicked);
         function whichClicked(e) {
             const el = e.target;
+            
             el.matches(DOM.inputButton) && ctrlAddItem();
             el.matches(DOM.pauseButton) && pauseResumeTimer(e);
             e.target.matches(DOM.inputAttribute) && console.log('tik tak tik tak')
@@ -161,9 +162,11 @@ var controller = (function (TimeCtrl, UIctrl) {
         //TimeCtrl.startcount();
     };
     var pauseResumeTimer = (el) => {
+        
         var currentIntervalID=el.target.previousElementSibling.getAttribute('timer-id');
         var currentIDattribute=el.target.parentNode.getAttribute('data-id');
         var parent=el.target.parentNode;
+       
         if(parent.className.includes('resume')){
             parent.classList.toggle('resume')
             startTimer(TimeCtrl.returnCurrentTime(currentIDattribute))
