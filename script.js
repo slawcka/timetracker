@@ -186,8 +186,18 @@ var controller = (function (TimeCtrl, UIctrl) {
         seconds = 0;
 
         intervalID = setInterval(() => {
+            var timeHours,timeMinutes,timeSeconds,timeHoursMinutes;
+            timeHours=Math.floor(currentSeconds / 3600);    
+            timeMinutes=Math.floor((currentSeconds - (timeHours * 3600)) / 60);
+            timeSeconds=currentSeconds - (timeHours * 3600) - (timeMinutes * 60);
+    
+            if (timeHours   < 10) {timeHours   = "0"+timeHours;}
+            if (timeMinutes < 10) {timeMinutes = "0"+timeMinutes;}
+            if (timeSeconds < 10) {timeSeconds = "0"+timeSeconds;}
+    
+            timeHoursMinutes=timeHours+' : '+timeMinutes+' : '+timeSeconds;
             currentSeconds++
-            parent.textContent = currentSeconds;
+            parent.textContent = timeHoursMinutes;
             TimeCtrl.updateObjTime(el.id, currentSeconds);
         }, 1000)
         parent.setAttribute('timer-id', intervalID);
