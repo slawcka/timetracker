@@ -8,6 +8,11 @@
     background:linear-gradient(90deg, rgb(139, 152, 230) 0%, rgb(138, 173, 240) 35%, rgb(145, 238, 232) 100%);
   }
   
+  .pr {
+    padding-right:6px;
+  }
+
+
   .tasker-box {
       background:white;
       border-radius:10px;
@@ -26,7 +31,7 @@
     box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.09)
   }
   h2 {
-    color: #2082a5 !important;
+    color: rgb(142, 150, 192) !important;
     font-size: 2em;
   }
   
@@ -114,18 +119,24 @@
     box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.09);
     margin-bottom:15px;
     align-items: center;
+    padding:15px 20px;
   }
  
 
   .time {
     display:flex;
     align-items: center;
-    
-    
+    margin-left:auto;
+  }
+  .time * {
+    padding-right:10px;
   }
   .time p{
-    font-size:4em;
+    font-weight:400;
+    font-size:2.5em;
     margin:0;
+    color:rgb(142, 150, 192);
+    
   }
   .controls{
     display:flex;
@@ -134,12 +145,20 @@
 
   }
   .delete {
-    
-    align-self:flex-start;
+    color:rgb(142, 150, 192);
+    cursor:pointer;
+  }
+  .delete:hover{
+    color:rgb(114, 121, 158);
   }
   .pause {
-   
-    
+  font-size:2.5em;
+  color:rgb(111, 200, 223);
+  cursor:pointer;
+  }
+  .pause:hover{
+    color:rgb(18, 179, 219);
+
   }
   
   /* task box */

@@ -106,7 +106,7 @@ var UiController = (function () {
 
         addListItemDOM: (obj) => {
             var wrapper = DOMstrings.taskWrapper;
-            var html = `<div class=col-12 m-3><div class='task-item clearfix ' data-id='${obj.id}'><h2>${obj.name}</h2><div class="time"><p data-currentTimer=${obj.id}>0</p><i class="fas fa-pause-circle pause"></i><i class="fas fa-trash-alt"></i></div></div></div>`;
+            var html = `<div class=col-12 m-3><div class='task-item clearfix ' data-id='${obj.id}'><h2>${obj.name}</h2><div class="time"><p data-currentTimer=${obj.id}>0</p><i class="fas fa-pause-circle pause pr"></i><i class="fas fa-trash-alt delete pr"></i></div></div></div>`;
             document.querySelector(wrapper).insertAdjacentHTML('beforeend', html);
             currentID = obj.id;
         },
