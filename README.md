@@ -1,1 +1,2 @@
-# pomodoro like tracker . vanilla js
+# pomodoro like tracker . 
+vanilla js, module pattern
